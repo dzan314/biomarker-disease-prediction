@@ -18,6 +18,18 @@ Second (comparision) model: LightGBM
 
 ## Usage
 
+Install dependencies if needed:
+
+``` bash
+pip install pandas
+pip install scikit-learn
+pip install xgboost
+pip install lightgbm
+pip install seaborn
+pip install matplotlib
+pip install shap
+```
+
 ## Future Work
 
 ## License
