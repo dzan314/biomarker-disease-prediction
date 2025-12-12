@@ -12,10 +12,11 @@ diet = pd.read_csv("diet.csv")
 questions = pd.read_csv("questionnaire.csv")
 examination = pd.read_csv("examination.csv")
 
+# merging five main data files 
 df = demo \
     .merge(labs, on="SEQN", how="left") \
     .merge(diet, on="SEQN", how="left") \
     .merge(questions, on="SEQN", how="left") \
     .merge(examination, on="SEQN", how="left")
 
-    
+df = df.replace([7, 8, 9], pd.NA)    
