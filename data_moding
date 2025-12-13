@@ -19,7 +19,7 @@ df = demo \
     .merge(questions, on="SEQN", how="left") \
     .merge(examination, on="SEQN", how="left")
 
-df = df.replace([7, 8, 9], pd.NA) 
+# cleaning
 
 df = df.replace([7, 8, 9], pd.NA) # droping (replacing with "NaN") invalid survey-type values 
 
