@@ -2,6 +2,8 @@
 
 ## Overview
 
+Type II diabetes predictor
+
 ## Features
 
 ## Data Set
