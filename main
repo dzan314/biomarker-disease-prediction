@@ -25,3 +25,15 @@ df = df.replace([7, 8, 9], pd.NA) # droping (replacing with "NaN") invalid surve
 
 df = df[df["DIQ10"].isin([1, 2])] # drop any value in column DIQ10 (was diabetes diagnosed) that's not 1 or 2 (yes/no)
 df["diabetes"] = df["DIQ10"].replace({1:1, 2:0}) # convert to binary - diabetes positive = 1, negative = 0
+
+df = df[df["RIDAGEYR"] >= 20]
+
+y = df["DIQ10"]
+
+leakage_vars = [
+    # TODO
+]
+
+df = df.drop(columns=leakage_vars)
+
+x = pd.get_dummies(df, drop_first=True)
