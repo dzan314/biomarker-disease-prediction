@@ -43,13 +43,13 @@ fundamental_features = [
     "DR1TKCAL", "DR1TSUGR", "SLD010H"
 ]
 
-# -------------------------- RISK PREDICTION MODEL -------------------
+# -------------------------- RISK PREDICTION -------------------
 
 risk_features = fundamental_features.copy()
 
 X_risk = df[risk_features]
 
-# --------------------------- CLINICAL MODEL --------------------
+# --------------------------- CLINICAL --------------------
 
 clinical_features = risk_features + ["LBXGLU", "LBXGH"]
 X_clinical = df[clinical_features]
