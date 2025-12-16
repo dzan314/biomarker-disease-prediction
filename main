@@ -29,11 +29,25 @@ df["diabetes"] = df["DIQ10"].replace({1:1, 2:0}) # convert to binary - diabetes 
 df = df[df["RIDAGEYR"] >= 20]
 
 y = df["DIQ010"]
-
-leakage_vars = [
-    # TODO
+fundamental_features = [
+    "RIDAGEYR", "RIAGENDR", "RIDRETH1",
+    "DMDEDUC2", "INDHHIN2",
+    "BMXBMI", "BMXWAIST",
+    "SBP_mean", "DBP_mean",
+    "LBXTC", "LBDHDL", "LBDLDL", "LBDTRSI",
+    "PAQ605", "SMQ020", "ALQ101",
+    "DR1TKCAL", "DR1TSUGR", "SLD010H"
 ]
 
-df = df.drop(columns=leakage_vars)
+# -------------------------- RISK PREDICTION MODEL -------------------
+
+risk_features = fundamental_features.copy()
+
+X_risk = df[risk_features]
+
+# --------------------------- CLINICAL MODEL --------------------
+
+clinical_features = risk_features + ["LBXGLU", "LBXGH"]
+X_clinical = df[clinical_features]
 
 x = pd.get_dummies(df, drop_first=True)
