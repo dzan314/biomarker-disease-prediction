@@ -7,7 +7,7 @@ import matplotlib as plt
 import shap as shap
 
 demo = pd.read_csv("demographic.csv")
-labs = pd.read_csv("examination.csv")
+labs = pd.read_csv("labs.csv")
 diet = pd.read_csv("diet.csv")
 questions = pd.read_csv("questionnaire.csv")
 examination = pd.read_csv("examination.csv")
@@ -28,7 +28,8 @@ df["diabetes"] = df["DIQ10"].replace({1:1, 2:0}) # convert to binary - diabetes 
 
 df = df[df["RIDAGEYR"] >= 20]
 
-y = df["DIQ010"]
+y = df["diabetes"]
+
 fundamental_features = [
     "RIDAGEYR", "RIAGENDR", "RIDRETH1",
     "DMDEDUC2", "INDHHIN2",
