@@ -43,6 +43,12 @@ fundamental_features = [
     "DR1TKCAL", "DR1TSUGR", "SLD010H"
 ]
 
+columuns_with_categories = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"]
+
+for col in columuns_with_categories:
+    label = LabelEncoder()
+    df[col] = label.fit_transform(df[col].astype(str))
+
 # -------------------------- RISK PREDICTION -------------------
 
 risk_features = fundamental_features.copy()
@@ -53,5 +59,3 @@ X_risk = df[risk_features]
 
 clinical_features = risk_features + ["LBXGLU", "LBXGH"]
 X_clinical = df[clinical_features]
-
-x = pd.get_dummies(df, drop_first=True)
