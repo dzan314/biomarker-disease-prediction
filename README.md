@@ -3,6 +3,8 @@
 ## Overview
 
 Type II diabetes predictor
+model I - risk prediction
+model II - clinical screening
 
 ## Features
 
