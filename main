@@ -28,6 +28,9 @@ df["diabetes"] = df["DIQ10"].replace({1:1, 2:0}) # convert to binary - diabetes 
 
 df = df[df["RIDAGEYR"] >= 20]
 
+df["SBP_mean"] = df[["BPXSY1", "BPXSY2", "BPXSY3"]].mean(axis=1) # Systolic Blood Pressure - median out of 3 samples (in NHANES examinations its examined 3 times per participant) 
+df["DBP_mean"] = df[["BPXDI1", "BPXDI2", "BPXDI3"]].mean(axis=1) # Diastolic Blood Pressure - median out of 3 samples (in NHANES examinations its examined 3 times per participant
+
 y = df["diabetes"]
 
 fundamental_features = [
