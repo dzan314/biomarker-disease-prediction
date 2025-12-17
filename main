@@ -28,8 +28,8 @@ df["diabetes"] = df["DIQ10"].replace({1:1, 2:0}) # convert to binary - diabetes 
 
 df = df[df["RIDAGEYR"] >= 20]
 
-df["SBP_mean"] = df[["BPXSY1", "BPXSY2", "BPXSY3"]].mean(axis=1) # Systolic Blood Pressure - median out of 3 samples (in NHANES examinations its examined 3 times per participant) 
-df["DBP_mean"] = df[["BPXDI1", "BPXDI2", "BPXDI3"]].mean(axis=1) # Diastolic Blood Pressure - median out of 3 samples (in NHANES examinations its examined 3 times per participant
+df["SBP_mean"] = df[["BPXSY1", "BPXSY2", "BPXSY3"]].mean(axis=1) # Systolic Blood Pressure - mean out of 3 samples (in NHANES examinations its examined 3 times per participant) 
+df["DBP_mean"] = df[["BPXDI1", "BPXDI2", "BPXDI3"]].mean(axis=1) # Diastolic Blood Pressure - mean out of 3 samples (in NHANES examinations its examined 3 times per participant
 
 y = df["diabetes"]
 
@@ -43,9 +43,9 @@ fundamental_features = [
     "DR1TKCAL", "DR1TSUGR", "SLD010H"
 ]
 
-columuns_with_categories = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"]
+categorical_columns = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"]
 
-for col in columuns_with_categories:
+for col in categorical_columns:
     label = LabelEncoder()
     df[col] = label.fit_transform(df[col].astype(str))
 
