@@ -31,6 +31,13 @@ df = df[df["RIDAGEYR"] >= 20]
 df["SBP_mean"] = df[["BPXSY1", "BPXSY2", "BPXSY3"]].mean(axis=1) # Systolic Blood Pressure - mean out of 3 samples (in NHANES examinations its examined 3 times per participant) 
 df["DBP_mean"] = df[["BPXDI1", "BPXDI2", "BPXDI3"]].mean(axis=1) # Diastolic Blood Pressure - mean out of 3 samples (in NHANES examinations its examined 3 times per participant
 
+# eliminating any potential tail values - borderline insane readings (normalizing the scale of measurementrs)
+df = df[
+    (df["BMXBMI"].between(10, 80)) &
+    (df["SBP_mean"].between(70, 250)) &
+    (df["DBP_mean"].between(40, 150))
+]
+
 y = df["diabetes"]
 
 fundamental_features = [
