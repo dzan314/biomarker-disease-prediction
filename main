@@ -66,3 +66,5 @@ X_risk = df[risk_features]
 
 clinical_features = risk_features + ["LBXGLU", "LBXGH"]
 X_clinical = df[clinical_features]
+
+#TODO --> split into training/evaluation sets 
