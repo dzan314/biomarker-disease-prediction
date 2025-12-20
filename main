@@ -50,7 +50,7 @@ fundamental_features = [
     "DR1TKCAL", "DR1TSUGR", "SLD010H"
 ]
 
-categorical_columns = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"]
+categorical_columns = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"] # columns with categories encoded as integers changed to strings, so model doesn't treat them like numbers (bigger/smaller)
 
 for col in categorical_columns:
     label = LabelEncoder()
