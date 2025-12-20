@@ -40,14 +40,19 @@ df = df[
 
 y = df["diabetes"]
 
-fundamental_features = [
+fundamental_features = [                                
     "RIDAGEYR", "RIAGENDR", "RIDRETH1",
     "DMDEDUC2", "INDHHIN2",
     "BMXBMI", "BMXWAIST",
     "SBP_mean", "DBP_mean",
-    "LBXTC", "LBDHDL", "LBDLDL", "LBDTRSI",
-    "PAQ605", "SMQ020", "ALQ101",
-    "DR1TKCAL", "DR1TSUGR", "SLD010H"
+
+    "LBXSCH", "LBXSTR", #lipids
+
+    "PAQ605", "SMQ020", "ALQ101", #habits
+
+    "DR1TKCAL", "DR1TSUGR", #diet
+    
+    "SLD010H" #sleep
 ]
 
 categorical_columns = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"] # columns with categories encoded as integers changed to strings, so model doesn't treat them like numbers (bigger/smaller)
