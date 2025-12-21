@@ -20,6 +20,8 @@ Second (comparision) model: LightGBM
 
 ## Results
 
+TODO --> consider SHAP equations
+
 ## Usage
 
 Install dependencies if needed:
