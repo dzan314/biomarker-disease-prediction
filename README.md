@@ -18,11 +18,12 @@ Main model: XGBoost
 
 Second (comparision) model: LightGBM
 
-
+Eliminate outliers with pure math - or maybe not? (comparision, irl applications?)
 
 ## Results
 
 TODO --> consider SHAP equations
+
 Check Shepley's values and explore the model research-style
 
 ## Usage
