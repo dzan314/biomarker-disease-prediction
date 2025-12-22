@@ -18,9 +18,12 @@ Main model: XGBoost
 
 Second (comparision) model: LightGBM
 
+
+
 ## Results
 
 TODO --> consider SHAP equations
+Check Shepley's values and explore the model research-style
 
 ## Usage
 
