@@ -5,7 +5,9 @@ import seaborn as sns
 import lightgbm as lgbm
 import matplotlib as plt
 import shap as shap
+# =====
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
 
 demo = pd.read_csv("demographic.csv")
 labs = pd.read_csv("labs.csv")
