@@ -58,10 +58,6 @@ fundamental_features = [
 
 categorical_columns = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"] # columns with categories encoded as integers changed to strings, so model doesn't treat them like numbers (bigger/smaller)
 
-for col in categorical_columns:
-    label = LabelEncoder()
-    df[col] = label.fit_transform(df[col].astype(str))
-
 # -------------------------- RISK PREDICTION -------------------
 
 risk_features = fundamental_features.copy()
@@ -72,6 +68,10 @@ y = df["diabetes"] # <--- target value
 Xr_train, Xr_test, yr_train, yr_test = train_test_split(
     X_risk, y, test_size=0.2, stratify=y, random_state=42
 )
+
+for col in categorical_columns:
+    label = LabelEncoder()
+    df[col] = label.fit_transform(df[col].astype(str))    # <--- TODO: FIT ON TRAINING DATA!!!
 
 # --------------------------- CLINICAL --------------------
 
