@@ -41,8 +41,6 @@ df = df[
     (df["DBP_mean"].between(40, 150))
 ]
 
-y = df["diabetes"] # <--- target value
-
 fundamental_features = [                                
     "RIDAGEYR", "RIAGENDR", "RIDRETH1",
     "DMDEDUC2", "INDHHIN2",
@@ -69,6 +67,11 @@ for col in categorical_columns:
 risk_features = fundamental_features.copy()
 
 X_risk = df[risk_features]
+y = df["diabetes"] # <--- target value
+
+Xr_train, Xr_test, yr_train, yr_test = train_test_split(
+    X_risk, y, test_size=0.2, stratify=y, random_state=42
+)
 
 # --------------------------- CLINICAL --------------------
 
