@@ -81,5 +81,3 @@ for col in categorical_columns:
 
 clinical_features = risk_features + ["LBXSIR", "LBXGH", "LBXSGL"] # lipid and/or glucose based??
 X_clinical = df[clinical_features]
-
-#TODO --> split into training/evaluation sets 
