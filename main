@@ -69,9 +69,13 @@ Xr_train, Xr_test, yr_train, yr_test = train_test_split(
     X_risk, y, test_size=0.2, stratify=y, random_state=42
 )
 
+label_encoders = {}
+
 for col in categorical_columns:
     label = LabelEncoder()
-    df[col] = label.fit_transform(df[col].astype(str))    # <--- TODO: FIT ON TRAINING DATA!!!
+    Xr_train[col] = label.fit_transform(Xr_train[col].astype(str))
+    Xr_test[col] = label.fit_transform(Xr_test[col].astype(str))
+    label_encoders[col] = label
 
 # --------------------------- CLINICAL --------------------
 
