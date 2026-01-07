@@ -81,3 +81,14 @@ for col in categorical_columns:
 # leave it for now
 # clinical_features = risk_features + ["LBXSIR", "LBXGH", "LBXSGL"] # lipid and/or glucose based??
 # X_clinical = df[clinical_features]
+# ----------------------------------------------------------
+
+xgb_risk = xgb.XGBClassifier(
+    n_estimators=303,
+    max_depth=5,
+    learning_rate=0.05,
+    subsample=0.8,
+    colsample_bytree=0.8,
+    eval_metric="logloss",
+    random_state=42
+)
