@@ -99,3 +99,5 @@ xgb_risk.fit(Xr_train, yr_train) # fitting on training data
 yr_pred_proba = xgb_risk.predict_proba(Xr_test)[:, 1] # predict_proba returns a 2D array, where the second column is the positive score for diabetes, hence the slice
 
 print(f"ROC-AUC: {roc_auc_score(yr_test, yr_pred_proba)}") # quick check of model performance
+
+# TODO --> FIX DTYPES (num columns to num, deal with <object> / NaN)
