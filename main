@@ -66,6 +66,8 @@ risk_features = fundamental_features.copy()
 X_risk = df[risk_features]
 y = df["diabetes"] # <--- target value
 
+# -> NUM - NUM CONVERSION HERE
+
 Xr_train, Xr_test, yr_train, yr_test = train_test_split(
     X_risk, y, test_size=0.2, stratify=y, random_state=42
 )
