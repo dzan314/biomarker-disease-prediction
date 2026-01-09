@@ -103,3 +103,4 @@ yr_pred_proba = xgb_risk.predict_proba(Xr_test)[:, 1] # predict_proba returns a 
 print(f"ROC-AUC: {roc_auc_score(yr_test, yr_pred_proba)}") # quick check of model performance
 
 # TODO --> FIX DTYPES (num columns to num, deal with <object> / NaN)
+# train it, test on training/test using more than roc-auc
