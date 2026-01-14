@@ -14,11 +14,9 @@ NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014
 
 ## Methods
 
-Main model: XGBoost
+Main model: XGBoost  /// CURRENT ROC AUC: 0.833741887697517
 
 Second (comparision) model: LightGBM
-
-roc auc for quick validation
 
 ## Results
 
