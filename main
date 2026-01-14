@@ -85,6 +85,10 @@ for col in categorical_columns:
     Xr_test[col] = label.fit_transform(Xr_test[col].astype(str))
     label_encoders[col] = label
 
+Xr_train = Xr_train.apply(pd.to_numeric, errors="coerce")
+Xr_test  = Xr_test.apply(pd.to_numeric, errors="coerce")
+
+
 # --------------------------- CLINICAL --------------------
 # leave it for now
 # clinical_features = risk_features + ["LBXSIR", "LBXGH", "LBXSGL"] # lipid and/or glucose based??
