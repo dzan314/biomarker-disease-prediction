@@ -88,6 +88,11 @@ for col in categorical_columns:
 Xr_train = Xr_train.apply(pd.to_numeric, errors="coerce")
 Xr_test  = Xr_test.apply(pd.to_numeric, errors="coerce")
 
+median_values = Xr_train.median()
+
+# empty cells filled with median values
+Xr_train = Xr_train.fillna(median_values)
+Xr_test  = Xr_test.fillna(median_values)
 
 # --------------------------- CLINICAL --------------------
 # leave it for now
