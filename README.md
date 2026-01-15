@@ -3,6 +3,7 @@
 ## Overview
 
 Type II diabetes predictor
+
 Risk prediction
 
 ## Features
@@ -16,6 +17,7 @@ NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014
 Main model: XGBoost
 
 CURRENT ROC AUC: 0.8423920711060948
+
 CURRENT PR-AUC: 0.4424574511709692
 
 Second (comparision) model: LightGBM
@@ -24,9 +26,7 @@ Second (comparision) model: LightGBM
 
 TODO:
 
-Check Shepley's values 
-Sensitivity
-Calibration (curve)
+Check Shepley's values + Sensitivity + Calibration (curve)
 
 ## Usage
 
