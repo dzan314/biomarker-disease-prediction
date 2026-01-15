@@ -1,3 +1,5 @@
+# ---------------------- IMPORTS AND FILE SETUP ------------------
+
 import sklearn as sklearn
 import pandas as pd
 import xgboost as xgb
@@ -23,7 +25,7 @@ df = demo \
     .merge(questions, on="SEQN", how="left") \
     .merge(examination, on="SEQN", how="left")
 
-# cleaning
+#-------------------- DATA CLEANING ----------------------
 
 df = df.replace([7, 8, 9], pd.NA).infer_objects(copy=False) # droping (replacing with "NaN") invalid survey-type values 
 
@@ -63,16 +65,15 @@ fundamental_features = [
     "SLD010H" #sleep
 ]
 
-categorical_columns = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"] # columns with categories encoded as integers changed to strings, so model doesn't treat them like numbers (bigger/smaller)
+# columns with categories encoded as integers changed to strings; so model doesn't treat them like numbers (bigger/smaller)
+categorical_columns = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"]
 
-# -------------------------- RISK PREDICTION -------------------
+# -------------------------- FINAL DATA MODELING FOR THE MODEL; TRAIN/TEST SPLIT, TARGET AND FEATURES ---------------------
 
 risk_features = fundamental_features.copy()
 
 X_risk = df[risk_features]
 y = df["diabetes"] # <--- target value
-
-# -> NUM - NUM CONVERSION HERE
 
 Xr_train, Xr_test, yr_train, yr_test = train_test_split(
     X_risk, y, test_size=0.2, stratify=y, random_state=42
@@ -95,11 +96,7 @@ median_values = Xr_train.median()
 Xr_train = Xr_train.fillna(median_values)
 Xr_test  = Xr_test.fillna(median_values)
 
-# --------------------------- CLINICAL --------------------
-# leave it for now
-# clinical_features = risk_features + ["LBXSIR", "LBXGH", "LBXSGL"] # lipid and/or glucose based??
-# X_clinical = df[clinical_features]
-# ----------------------------------------------------------
+#------------------------- MODEL FITTING & TRAINING ------------------
 
 xgb_risk = xgb.XGBClassifier(
     n_estimators=303,
