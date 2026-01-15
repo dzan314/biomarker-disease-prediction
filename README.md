@@ -3,8 +3,7 @@
 ## Overview
 
 Type II diabetes predictor
-model I - risk prediction
-model II - clinical screening <--- # supposed to be based on glucose, but maybe lipids?
+Risk prediction
 
 ## Features
 
@@ -14,15 +13,20 @@ NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014
 
 ## Methods
 
-Main model: XGBoost  /// CURRENT ROC AUC: 0.833741887697517
+Main model: XGBoost
+
+CURRENT ROC AUC: 0.8423920711060948
+CURRENT PR-AUC: 0.4424574511709692
 
 Second (comparision) model: LightGBM
 
 ## Results
 
-TODO --> consider SHAP equations
+TODO:
 
-Check Shepley's values and explore the model research-style
+Check Shepley's values 
+Sensitivity
+Calibration (curve)
 
 ## Usage
 
