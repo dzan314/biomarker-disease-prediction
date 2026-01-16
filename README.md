@@ -20,13 +20,13 @@ CURRENT ROC AUC: 0.8423920711060948
 
 CURRENT PR-AUC: 0.4424574511709692
 
-Second (comparision) model: LightGBM
+Second (comparision) model: LightGBM <-- TODO
 
 ## Results
 
 TODO:
 
-Check Shepley's values + Sensitivity + Calibration (curve)
+Check Shepley's values + Sensitivity + Calibration (curve) plot
 
 ## Usage
 
@@ -45,3 +45,5 @@ pip install shap
 ## Future Work
 
 ## License
+
+MIT License
