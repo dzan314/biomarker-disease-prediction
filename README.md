@@ -14,6 +14,8 @@ NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014
 
 ## Methods
 
+(maybe add something for feature selection, sort of BorutaPy?)
+
 Main model: XGBoost
 
 CURRENT ROC AUC: 0.8423920711060948
