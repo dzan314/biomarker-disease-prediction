@@ -14,7 +14,7 @@ NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014
 
 ## Methods
 
-(maybe add something for feature selection, sort of BorutaPy?)
+feature selection <-- TODO
 
 Main model: XGBoost
 
