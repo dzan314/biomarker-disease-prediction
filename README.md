@@ -14,13 +14,15 @@ NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014
 
 ## Methods
 
-feature selection <-- TODO
-
 Main model: XGBoost
 
-CURRENT ROC AUC: 0.8423920711060948 <-- GOAL: acap to 0.9
+After feature selection process:
 
-CURRENT PR-AUC: 0.4424574511709692
+For features set X = ['LBDLDL', 'PAQ605', 'RIDAGEYR', 'DR1TFIBE', 'SLD010H', 'DMDEDUC2', 'INDHHIN2', 'DR1TSUGR', 'RIDRETH1', 'BMXHT', 'LBXSCR', 'BMXWAIST', 'ALQ101', 'LBXSTR', 'SBP_mean']
+
+ROC AUC: 0.8423920711060948 --> 0.8572058408577878  (+ 1.7% )
+
+PR-AUC: 0.4424574511709692 --> 0.47388243098907745  (+ 7% )
 
 Second (comparision) model: LightGBM <-- TODO
 
