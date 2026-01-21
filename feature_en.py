@@ -63,16 +63,16 @@ features = [
 "MCQ010" #  General health condition
 ]
 
-permutations = []
+# ADD DOCSTRINGS
 
-for _ in range(50):  # 50 different random subsets
-    perm = random.sample(features, 15)
-    permutations.append(perm)
+def feature_pool_init(all_features, available_col):
+    return [f for f in all_features if f in available_col]
 
-def random_subset():
-    return random.choice(permutations)
+def random_subset(pool, size=15):
+    if size > len(pool):
+        raise ValueError("Subset size cannot be larger than feature pool!")
+    return random.sample(pool, size)
 
-print(random_subset())
 
 
 
