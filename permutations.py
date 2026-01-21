@@ -48,67 +48,59 @@ df = df[
     (df["DBP_mean"].between(40, 150))
 ]
 
-fundamental_features = fen.random_subset()
-
-all_categorical_columns = ["RIAGENDR", "RIDRETH1", "DMDEDUC2", "INDHHIN2"]
-
-# -------------------------- RISK PREDICTION -------------------
-
-risk_features = fundamental_features.copy()
-
-X_risk = df[risk_features]
-y = df["diabetes"] # set target
-
-Xr_train, Xr_test, yr_train, yr_test = train_test_split(
-    X_risk, y, test_size=0.2, stratify=y, random_state=42
+FEATURE_POOL = fen.feature_pool_init(
+    fen.ALL_FEATURES,
+    df.columns
 )
 
-categorical_columns = [
-    col for col in all_categorical_columns
-    if col in risk_features
-]
+N_EXPERIMENTS = 50
+roc_scores = []
 
-label_encoders = {}
+for i in range(N_EXPERIMENTS):
 
-for col in categorical_columns:
-    label = LabelEncoder()
-    Xr_train[col] = label.fit_transform(Xr_train[col].astype(str))
-    Xr_test[col]  = label.transform(Xr_test[col].astype(str))
-    label_encoders[col] = label
+    risk_features = fen.random_subset(FEATURE_POOL)
+
+    X_risk = df[risk_features]
+    y = df["diabetes"] # set target
+
+    Xr_train, Xr_test, yr_train, yr_test = train_test_split(
+        X_risk, y, test_size=0.2, stratify=y, random_state=42
+    )
+
+    label_encoders = {}
+
+    for col in fen.CATEGORICAL_FEATURES:
+        if col in Xr_train.columns:
+            label = LabelEncoder()
+            Xr_train[col] = label.fit_transform(Xr_train[col].astype(str))
+            Xr_test[col]  = label.transform(Xr_test[col].astype(str))
+            label_encoders[col] = label
 
 
-Xr_train = Xr_train.apply(pd.to_numeric, errors="coerce")
-Xr_test  = Xr_test.apply(pd.to_numeric, errors="coerce")
+    Xr_train = Xr_train.apply(pd.to_numeric, errors="coerce")
+    Xr_test  = Xr_test.apply(pd.to_numeric, errors="coerce")
 
-median_values = Xr_train.median()
+    median_values = Xr_train.median()
 
-# empty cells filled with median values
-Xr_train = Xr_train.fillna(median_values)
-Xr_test  = Xr_test.fillna(median_values)
+    # empty cells filled with median values
+    Xr_train = Xr_train.fillna(median_values)
+    Xr_test  = Xr_test.fillna(median_values)
 
-# --------------------------- CLINICAL --------------------
+    xgb_risk = xgb.XGBClassifier(
+        n_estimators=303,
+        max_depth=5,
+        learning_rate=0.04,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        eval_metric="logloss",
+        random_state=42
+    )
 
-# clinical_features = risk_features + ["LBXSIR", "LBXGH", "LBXSGL"] # lipid and/or glucose based??
-# X_clinical = df[clinical_features]
+    xgb_risk.fit(Xr_train, yr_train) # fitting on training data
 
-# missing_rate = df[fundamental_features].isna().mean()
-# print(missing_rate.sort_values(ascending=False))
+    yr_pred_proba = xgb_risk.predict_proba(Xr_test)[:, 1] # predict_proba returns a 2D array, where the second column is the positive score for diabetes, hence the slice
 
-# ---------------------- MODEL --------------------------
+    print(f"MODEL {i+1}: {risk_features}")
+    print(f"ROC-AUC: {roc_auc_score(yr_test, yr_pred_proba)} /// PR-AUC: {average_precision_score(yr_test, yr_pred_proba)}")
+    print()
 
-xgb_risk = xgb.XGBClassifier(
-    n_estimators=303,
-    max_depth=5,
-    learning_rate=0.04,
-    subsample=0.8,
-    colsample_bytree=0.8,
-    eval_metric="logloss",
-    random_state=42
-)
-
-xgb_risk.fit(Xr_train, yr_train) # fitting on training data
-
-yr_pred_proba = xgb_risk.predict_proba(Xr_test)[:, 1] # predict_proba returns a 2D array, where the second column is the positive score for diabetes, hence the slice
-
-print(f"ROC-AUC: {roc_auc_score(yr_test, yr_pred_proba)}")
-print(f"PR-AUC: {average_precision_score(yr_test, yr_pred_proba)}")
