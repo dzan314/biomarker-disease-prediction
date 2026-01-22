@@ -128,5 +128,3 @@ def selection_run(n_experiments: int, p_features: int):
 if __name__ == "__main__":
 
     print(f"BEST ROC-AUC: {selection_run(50, 15)}")
-
-
