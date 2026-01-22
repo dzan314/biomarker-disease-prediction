@@ -24,6 +24,8 @@ ROC AUC: 0.8423920711060948 --> 0.8572058408577878  (+ 1.7% )
 
 PR-AUC: 0.4424574511709692 --> 0.47388243098907745  (+ 7% )
 
+Regarding the randomised feature selection - the pool of all features is set to size = 30. TODO --> new experimental file, with bigger pool size and different subset sizes
+
 Second (comparision) model: LightGBM <-- TODO
 
 ## Results
