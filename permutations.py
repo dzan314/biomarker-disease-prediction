@@ -48,59 +48,85 @@ df = df[
     (df["DBP_mean"].between(40, 150))
 ]
 
-FEATURE_POOL = fen.feature_pool_init(
-    fen.ALL_FEATURES,
-    df.columns
-)
+def selection_run(n_experiments: int, p_features: int):
 
-N_EXPERIMENTS = 50
-roc_scores = []
+    """
+    Function creates random subsets from the feature pool and runs the XGBoost model on them. \n
+    Returns the subset with the biggest ROC-AUC value, along with its PR-AUC value.
+    
+    :param n_experiments: number of random feature subsets from the feature pool of size = 30
+    :param p_features: size (number of features) of these random subsets
+    """
 
-for i in range(N_EXPERIMENTS):
+    feat_roc_dict = {}
+    all_subsets = []
+    roc_scores = []
+    pc_scores = []
 
-    risk_features = fen.random_subset(FEATURE_POOL)
-
-    X_risk = df[risk_features]
-    y = df["diabetes"] # set target
-
-    Xr_train, Xr_test, yr_train, yr_test = train_test_split(
-        X_risk, y, test_size=0.2, stratify=y, random_state=42
+    FEATURE_POOL = fen.feature_pool_init(
+        fen.ALL_FEATURES,
+        df.columns
     )
 
-    label_encoders = {}
+    for i in range(n_experiments):
 
-    for col in fen.CATEGORICAL_FEATURES:
-        if col in Xr_train.columns:
-            label = LabelEncoder()
-            Xr_train[col] = label.fit_transform(Xr_train[col].astype(str))
-            Xr_test[col]  = label.transform(Xr_test[col].astype(str))
-            label_encoders[col] = label
+        risk_features = fen.random_subset(FEATURE_POOL, size=p_features) # creating random subsets from the feature pool
+        all_subsets.append(risk_features)
+
+        X_risk = df[risk_features]
+        y = df["diabetes"] # set target
+
+        Xr_train, Xr_test, yr_train, yr_test = train_test_split(
+            X_risk, y, test_size=0.2, stratify=y, random_state=42
+        )
+
+        label_encoders = {}
+
+        for col in fen.CATEGORICAL_FEATURES:
+            if col in Xr_train.columns:
+                label = LabelEncoder()
+                Xr_train[col] = label.fit_transform(Xr_train[col].astype(str))
+                Xr_test[col]  = label.transform(Xr_test[col].astype(str))
+                label_encoders[col] = label
 
 
-    Xr_train = Xr_train.apply(pd.to_numeric, errors="coerce")
-    Xr_test  = Xr_test.apply(pd.to_numeric, errors="coerce")
+        Xr_train = Xr_train.apply(pd.to_numeric, errors="coerce")
+        Xr_test  = Xr_test.apply(pd.to_numeric, errors="coerce")
 
-    median_values = Xr_train.median()
+        median_values = Xr_train.median()
 
-    # empty cells filled with median values
-    Xr_train = Xr_train.fillna(median_values)
-    Xr_test  = Xr_test.fillna(median_values)
+        # empty cells filled with median values
+        Xr_train = Xr_train.fillna(median_values)
+        Xr_test  = Xr_test.fillna(median_values)
 
-    xgb_risk = xgb.XGBClassifier(
-        n_estimators=303,
-        max_depth=5,
-        learning_rate=0.04,
-        subsample=0.8,
-        colsample_bytree=0.8,
-        eval_metric="logloss",
-        random_state=42
-    )
+        # the XGBoost model
+        xgb_risk = xgb.XGBClassifier(
+            n_estimators=303,
+            max_depth=5,
+            learning_rate=0.04,
+            subsample=0.8,
+            colsample_bytree=0.8,
+            eval_metric="logloss",
+            random_state=42
+        )
 
-    xgb_risk.fit(Xr_train, yr_train) # fitting on training data
+        xgb_risk.fit(Xr_train, yr_train) # fitting on training data
 
-    yr_pred_proba = xgb_risk.predict_proba(Xr_test)[:, 1] # predict_proba returns a 2D array, where the second column is the positive score for diabetes, hence the slice
+        yr_pred_proba = xgb_risk.predict_proba(Xr_test)[:, 1] # predict_proba returns a 2D array, where the second column is the positive score for diabetes (hence the slice)
 
-    print(f"MODEL {i+1}: {risk_features}")
-    print(f"ROC-AUC: {roc_auc_score(yr_test, yr_pred_proba)} /// PR-AUC: {average_precision_score(yr_test, yr_pred_proba)}")
-    print()
+        roc = roc_auc_score(yr_test, yr_pred_proba)
+        pc = average_precision_score(yr_test, yr_pred_proba)
+        roc_scores.append(roc)
+        pc_scores.append(pc)
+
+        feat_roc_dict[roc_scores[i]] = all_subsets[i] # update the dictionary with roc - feature subset pairs
+        largest_roc = max(feat_roc_dict.keys()) # get the largest roc value
+        best_set = feat_roc_dict[largest_roc] # get the feature subset that's responsible for this roc value
+
+    return (best_set, largest_roc, pc_scores[i]) 
+
+if __name__ == "__main__":
+
+    print(f"BEST ROC-AUC: {selection_run(50, 15)}")
+
 
