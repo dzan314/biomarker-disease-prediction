@@ -16,6 +16,8 @@ NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014
 
 Main model: XGBoost
 
+Run Boruta on the features pool, using Random Forest model <--- TODO
+
 After feature selection process:
 
 For features set X = ['LBDLDL', 'PAQ605', 'RIDAGEYR', 'DR1TFIBE', 'SLD010H', 'DMDEDUC2', 'INDHHIN2', 'DR1TSUGR', 'RIDRETH1', 'BMXHT', 'LBXSCR', 'BMXWAIST', 'ALQ101', 'LBXSTR', 'SBP_mean']
