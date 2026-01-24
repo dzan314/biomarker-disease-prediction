@@ -8,6 +8,8 @@ Risk prediction
 
 ## Features
 
+TODO --> pipelines , launching
+
 ## Data Set
 
 NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014 (Kaggle)
