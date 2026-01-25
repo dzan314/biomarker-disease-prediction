@@ -18,7 +18,13 @@ NHANES (National Health and Nutrition Examination Survey) dataset from 2013-2014
 
 Main model: XGBoost
 
-Run Boruta on the features pool, using Random Forest model <--- TODO
+Run Boruta on the features pool, using Random Forest model
+
+This resulted in obtaining 17 relevant features, however they get outperformed by the randomly sampled features (p=15, see below)
+
+Thus, SHAP is a next step
+
+--------------------------------
 
 After feature selection process:
 
