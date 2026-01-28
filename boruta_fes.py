@@ -64,7 +64,7 @@ label_encoders = {}
 for col in fen.CATEGORICAL_FEATURES:
     label = LabelEncoder()
     X_train[col] = label.fit_transform(X_train[col].astype(str))
-    X_test[col] = label.fit_transform(X_test[col].astype(str))
+    X_test[col] = label.fit_transform(X_test[col].astype(str))            <---- # There is a data leakage here, need to FIX THIS (fit independent of transform)
     label_encoders[col] = label
 
 X_train = X_train.apply(pd.to_numeric, errors="coerce")
