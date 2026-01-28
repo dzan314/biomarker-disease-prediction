@@ -84,7 +84,7 @@ label_encoders = {}
 for col in categorical_columns:
     label = LabelEncoder()
     Xr_train[col] = label.fit_transform(Xr_train[col].astype(str))
-    Xr_test[col] = label.fit_transform(Xr_test[col].astype(str))
+    Xr_test[col] = label.fit_transform(Xr_test[col].astype(str))            <---- # There is a data leakage here, need to FIX THIS (fit independent of transform)
     label_encoders[col] = label
 
 Xr_train = Xr_train.apply(pd.to_numeric, errors="coerce")
