@@ -54,7 +54,6 @@ pip install scikit-learn
 pip install xgboost
 pip install lightgbm
 pip install seaborn
-pip install matplotlib
 pip install shap
 ```
 
