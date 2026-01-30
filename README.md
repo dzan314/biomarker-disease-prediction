@@ -4,8 +4,6 @@
 
 Type II diabetes predictor
 
-Risk prediction
-
 ## Features
 
 TODO --> pipelines , launching
