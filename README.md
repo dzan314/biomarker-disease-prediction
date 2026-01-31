@@ -6,7 +6,7 @@ Type II diabetes predictor
 
 ## Features
 
-TODO --> pipelines , launching
+TODO --> pipelines 
 
 ## Data Set
 
