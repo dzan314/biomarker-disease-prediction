@@ -57,6 +57,8 @@ pip install shap
 
 ## Future Work
 
+Make the model better in terms of data modeling
+
 ## License
 
 MIT License
