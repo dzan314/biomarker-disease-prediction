@@ -22,6 +22,8 @@ This resulted in obtaining 17 relevant features, however they get outperformed b
 
 Thus, SHAP is a next step
 
+Any other methods to optimize?
+
 --------------------------------
 
 After feature selection process:
