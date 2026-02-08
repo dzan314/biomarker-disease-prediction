@@ -82,7 +82,7 @@ def selection_run(n_experiments: int, p_features: int):
 
         label_encoders = {}
 
-        for col in fen.CATEGORICAL_FEATURES:
+        for col in fen.CATEGORICAL_FEATURES:   # encoding with labels
             if col in Xr_train.columns:
                 label = LabelEncoder()
                 Xr_train[col] = label.fit_transform(Xr_train[col].astype(str))
@@ -128,3 +128,4 @@ def selection_run(n_experiments: int, p_features: int):
 if __name__ == "__main__":
 
     print(f"BEST ROC-AUC: {selection_run(50, 15)}")
+
